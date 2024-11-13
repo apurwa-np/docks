@@ -1,0 +1,62 @@
+Prerequisites
+ docker
+ docker-compose
+
+------------------------------
+
+Steps to setup the Drupal site
+
+Go to the repo folder (docks)
+
+Start the containers
+docker-compose up -d
+
+Go to 
+localhost:5000
+
+Enter following details:
+
+Language: English 
+Installation Profile: Standard 
+Database type: MySQL/MariaDB 
+Database name: drupal 
+Database username: drupal_user 
+Database password: drupal_pass 
+Database host: 10.10.10.3 (Under Advanced options)
+
+Provide additional details including login username and password
+
+
+-----------------------------
+
+Steps to download a theme
+
+Access the docker container
+docker exec -it drupalwebsrv bash
+
+Download drush
+composer require drush/drush
+
+Check status with drush
+drush status
+
+Download a theme with Composer
+composer require 'drupal/bootstrap:^5.0'
+
+note: The theme files will be available inside a folder called themes inside the repo.
+
+Enable the theme with drush
+drush thin bootstrap
+
+Set the theme as default
+drush config-set system.theme default bootstrap
+
+-----------------------------
+
+For rapid theme development disable css and jss aggregation
+
+Go to http://localhost:5000/admin/config/development/performance
+
+Untick the following
+Aggregate CSS files
+Aggregate JavaScript files
